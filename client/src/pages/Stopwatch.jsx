@@ -43,7 +43,7 @@ const Stopwatch = () => {
       localStorage.removeItem('countdown');
       localStorage.removeItem('endTime');
      
-      navigate('/otpverify');
+      navigate('/sendotp');
     }
   }, [countdown]);
 

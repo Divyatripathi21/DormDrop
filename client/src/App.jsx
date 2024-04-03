@@ -12,9 +12,8 @@ import Receiver from "./pages/Receiver";
 import ReceiverPost from "./pages/ReceiverPost";
 import SenderPost from "./pages/SenderPost";
 import Stopwatch from "./pages/Stopwatch";
-import SenderCountdown from "./pages/OtpVerify";
-import OtpVerify from "./pages/OtpVerify";
 import AfterPickingTimer from "./pages/AfterPickingTimer";
+import SendOTP from "./pages/SendOTP";
 
 
 export default function App() {
@@ -34,7 +33,7 @@ export default function App() {
         <Route path="/senderpost" element={<SenderPost/>} />
         <Route path="/stopwatch" element={<Stopwatch/>} />
         <Route path="/afterpickingtimer" element={<AfterPickingTimer/>}/>
-        <Route path="/otpverify" element={<OtpVerify/>} />
+        <Route path="/sendotp" element={<SendOTP/>} />
       </Routes>
       <Footer/>
     </BrowserRouter>
