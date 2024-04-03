@@ -43,7 +43,7 @@ export const signin = async (req, res, next) => {
   }
 
   try {
-    const validUser = await User.findOne({ username });
+    const validUser = await User.findOne({ username });    //taking data 
     if (!validUser) {
       return next(errorHandler(404, 'User not found'));
     }

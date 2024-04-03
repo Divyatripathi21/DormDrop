@@ -10,7 +10,8 @@ import {
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -19,10 +20,11 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.username || !formData.password) {
-      return dispatch(signInFailure('Please fill all the fields'));
+      return setErrorMessage('Please fill out all fields.');
     }
     try {
-      dispatch(signInStart());
+      setLoading(true);
+      setErrorMessage(null);
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,15 +32,17 @@ export default function SignIn() {
       });
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signInFailure(data.message));
+        setLoading(false);
+        return setErrorMessage(data.message);
       }
-
+      setLoading(false);
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate('/');
       }
     } catch (error) {
-      dispatch(signInFailure(error.message));
+      setErrorMessage(error.message);
+      setLoading(false);
     }
   };
   return (
@@ -65,7 +69,7 @@ export default function SignIn() {
               <Label value='Your Registration number' />
               <TextInput
                 type='username'
-                placeholder='Enter your 9 digits regitration number'
+                placeholder='Enter your 9 digits registration number'
                 id='username'
                 onChange={handleChange}
               />
