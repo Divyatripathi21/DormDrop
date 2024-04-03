@@ -52,6 +52,7 @@ import { theReceiver } from '../redux/receiver/receiverSlice';
         <h3 className="text-xl font-semibold text-gray-800">{receiver.name}</h3>
         <p className="text-gray-600 mt-2">Registration Number: {receiver.registrationNumber}</p>
         <p className="text-gray-600">Phone Number: {receiver.mobileNumber}</p>
+        <p className="text-gray-600">Email: {receiver.email}</p>
         <p className="text-gray-600">Block: {receiver.block}</p>
         <p className="text-gray-600">Room: {receiver.room}</p>
         <p className="text-gray-600">Wait Time: {receiver.waitTime}</p>

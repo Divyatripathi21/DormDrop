@@ -1,15 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { theOtp } from '../redux/otp/otpSlice';
+
+
+
+ 
 
 const SendOTP = () => {
-  // const navigate = useNavigate();
+  const dispatch=useDispatch();
   const { currentReceiver } = useSelector((state) => state.RECEIVER);
   const navigate=useNavigate();
-   
-  const handleOnclick=()=>{
-    // console.log('clicked');
-   
+  const email=currentReceiver.email;
+  const formdata={
+    "email":email,
+  }
+
+
+
+  const handleOnclick=async()=>{
+    
+    try {
+    
+      const res = await fetch('/api/otp/sendotp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formdata),
+      });
+
+
+      const data = await res.json();
+      if (data.success === false) {
+        toast.error("failed from backend otp");
+        console.log('failed')
+      }
+      
+    
+      if(res.ok) {
+       console.log('ho gya');
+        console.log(data.otp);
+        dispatch(theOtp(data.otp));
+        toast.success("OTP SENT SUCCESSFULLY");
+      }
+    } catch (error) {
+      console.log('failed from catch');
+    }
+    
     navigate('/afterpickingtimer');
     
   }

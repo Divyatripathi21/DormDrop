@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom';
 const Stopwatch = () => {
   const navigate = useNavigate();
   const { currentReceiver } = useSelector((state) => state.RECEIVER);
- 
+ const c=0.13;
   const [countdown, setCountdown] = useState();
 
   useEffect(() => {
     const storedCountdown = localStorage.getItem('countdown');
     const endTime = localStorage.getItem('endTime');
 
-    if (currentReceiver.waitTime && storedCountdown && endTime) {
+    if (c && storedCountdown && endTime) {
       const now = new Date().getTime();
       const remainingTime = endTime - now;
       if (remainingTime > 0) {
@@ -21,12 +21,12 @@ const Stopwatch = () => {
         localStorage.removeItem('countdown');
         localStorage.removeItem('endTime');
       }
-    } else if (currentReceiver.waitTime) {
-      const endTime = new Date().getTime() + currentReceiver.waitTime * 60 * 1000; // Convert waitTime to milliseconds
+    } else if (c) {
+      const endTime = new Date().getTime() +c * 60 * 1000; // Convert waitTime to milliseconds
       localStorage.setItem('endTime', endTime);
-      setCountdown(currentReceiver.waitTime * 60); // Convert waitTime to seconds
+      setCountdown(c * 60); // Convert waitTime to seconds
     }
-  }, [currentReceiver.waitTime]);
+  }, [c]);
 
   useEffect(() => {
     if (countdown > 0) {
@@ -74,6 +74,10 @@ const Stopwatch = () => {
              <div>
                <p className="text-gray-700 font-semibold">Registration Number:</p>
                <p className="text-gray-600">{currentReceiver.registrationNumber}</p>
+             </div>
+             <div>
+               <p className="text-gray-700 font-semibold">Email:</p>
+               <p className="text-gray-600">{currentReceiver.email}</p>
              </div>
              <div>
                <p className="text-gray-700 font-semibold">Mobile Number:</p>

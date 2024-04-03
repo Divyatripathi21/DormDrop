@@ -16,7 +16,7 @@ const Receiver = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-     if (!formData.registrationNumber || !formData.mobileNumber || !formData.block || !formData.name || !formData.room || !formData.waitTime) {
+     if (!formData.registrationNumber || !formData.mobileNumber || !formData.block || !formData.name || !formData.room || !formData.waitTime || !formData.email) {
       return setErrorMessage('Please fill out all fields.');
     }
     try {
@@ -69,6 +69,17 @@ const Receiver = () => {
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Enter your registration number"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-lg font-medium">email</label>
+            <input
+              type="email"
+              id="email"
+           
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter your email"
             />
           </div>
           <div>

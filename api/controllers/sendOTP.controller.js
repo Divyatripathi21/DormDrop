@@ -24,8 +24,8 @@ export const sendotp = async (req, res, next) => {
 
 
   if(!email ||email==='')
-  next(errorHandler(400, 'email is required'));
-
+  next(errorHandler(606, 'email is required'));
+  
   const otp = generateOTP();
 
   const otpDocument = new OTP({
@@ -49,7 +49,7 @@ export const sendotp = async (req, res, next) => {
       console.error(error);
       res.status(500).send({ success: false, error: 'Failed to send OTP' });
     } else {
-      otpDocument.save();
+      // otpDocument.save();
       console.log('Email sent: ' + info.response);
       res.send({ success: true, otp: otp });
     }
