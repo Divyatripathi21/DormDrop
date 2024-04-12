@@ -36,4 +36,4 @@ const receiverSchema = new mongoose.Schema({
 
 const Receiver = mongoose.model('Receiver', receiverSchema);
 
-export default Receiver; 
+export default Receiver;

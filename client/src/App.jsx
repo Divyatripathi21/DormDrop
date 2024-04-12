@@ -15,6 +15,10 @@ import Stopwatch from "./pages/Stopwatch";
 import AfterPickingTimer from "./pages/AfterPickingTimer";
 import SendOTP from "./pages/SendOTP";
 import { ToastContainer } from "react-toastify";
+import SuccessfullyDelivered from "./pages/SuccessfullyDelivered";
+import SenderEnd1 from "./pages/SenderEnd1";
+import ReceiverEnd1 from "./pages/ReceiverEnd1";
+
 
 
 export default function App() {
@@ -35,6 +39,10 @@ export default function App() {
         <Route path="/stopwatch" element={<Stopwatch/>} />
         <Route path="/afterpickingtimer" element={<AfterPickingTimer/>}/>
         <Route path="/sendotp" element={<SendOTP/>} />
+        <Route path="/successfullydelivered" element={<SuccessfullyDelivered/>} />
+        <Route path="/senderend1" element={<SenderEnd1/>} />
+        <Route path="/receiverend1" element={<ReceiverEnd1/>} />
+        
       </Routes>
       <ToastContainer/>
       <Footer/>

@@ -72,6 +72,7 @@ const AfterPickingTimer = () => {
     }
     if (otpData == currentOtp) {
       toast.success("OTP verified SUCCESSFULLY");
+      navigate('/successfullydelivered');
     } else {
       toast.error("Wrong OTP");
     }

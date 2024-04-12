@@ -6,7 +6,7 @@ const senderSchema = new mongoose.Schema({
         required: true,
        
     },
-    registrationNumber:{
+    registrationNumber:{   
         type: String,
         required: true,
         unique: true,
@@ -24,4 +24,4 @@ const senderSchema = new mongoose.Schema({
 
 const Sender = mongoose.model('Sender', senderSchema);
 
-export default Sender; 
+export default Sender;

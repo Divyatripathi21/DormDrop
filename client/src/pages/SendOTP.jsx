@@ -39,7 +39,6 @@ const SendOTP = () => {
       
     
       if(res.ok) {
-       console.log('ho gya');
         console.log(data.otp);
         dispatch(theOtp(data.otp));
         toast.success("OTP SENT SUCCESSFULLY");

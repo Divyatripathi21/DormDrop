@@ -2,31 +2,48 @@ import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaMoon } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { theDashboard } from "../redux/dashboard/dashboardSlice";
 
-import {
-  signout
-} from '../redux/user/userSlice';
+import { signout } from "../redux/user/userSlice";
 
 export default function Header() {
   const path = useLocation().pathname;
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/auth/signout', {
-        method: 'POST',
+      const res = await fetch("/api/auth/signout", {
+        method: "POST",
       });
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
       } else {
         dispatch(signout());
-        navigate('/');
+        navigate("/");
       }
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const handleDashboard = async () => {
+    try {
+      const res = await fetch(`/api/dashboard/userdashboard/${currentUser.username}`);
+      const data = await res.json();
+      if (data.success === false) {
+        console.log("error from bakck");
+      }
+
+      if (res.ok) {
+        console.log("success");
+        dispatch(theDashboard(data));
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.log("error from catch");
     }
   };
 
@@ -58,9 +75,9 @@ export default function Header() {
                 {currentUser.email}
               </span>
             </Dropdown.Header>
-            <Link to={"/dashboard?tab=profile"}>
-              <Dropdown.Item>Profile</Dropdown.Item>
-            </Link>
+
+            <Dropdown.Item onClick={handleDashboard}>Dashboard</Dropdown.Item>
+
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>

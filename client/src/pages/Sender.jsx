@@ -1,8 +1,12 @@
 import { Alert, Spinner } from 'flowbite-react';
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { theSender } from '../redux/sender/senderSlice';
+
 const Sender = () => {
-    
+    const dispatch=useDispatch();
+
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
    const [loading, setLoading] = useState(false);
@@ -34,6 +38,7 @@ const Sender = () => {
       
       setLoading(false);
       if(res.ok) {
+        dispatch(theSender(data));
         navigate('/receiverpost');
         //send this to reciver's post lists
          

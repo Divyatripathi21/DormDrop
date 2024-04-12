@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import Stopwatch from './Stopwatch';
 import { useDispatch, useSelector } from 'react-redux';
 import { theReceiver } from '../redux/receiver/receiverSlice';
 
@@ -38,7 +37,8 @@ import { theReceiver } from '../redux/receiver/receiverSlice';
     
     // console.log(receiver);
     dispatch(theReceiver(receiver));
-    navigate('/stopwatch')
+    navigate('/senderend1');
+    // navigate('/stopwatch')
   }
 
     

@@ -14,7 +14,7 @@ function Home() {
   }
 
   const handlereceiver=()=>{
-    navigate('/senderpost');
+    navigate('/receiverend1');
   }
 
   return (

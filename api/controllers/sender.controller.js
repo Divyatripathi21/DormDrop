@@ -27,7 +27,7 @@ export const senderForm = async (req, res, next) =>{
 
   try {
     await newSender.save();
-    res.json('Sender data successfully received');
+    res.json(newSender);
   } 
 
   catch (error)
