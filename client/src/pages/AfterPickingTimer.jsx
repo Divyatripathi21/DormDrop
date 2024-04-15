@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import io from "socket.io-client";
 
 const AfterPickingTimer = () => {
   const navigate = useNavigate();
   const { currentReceiver } = useSelector((state) => state.RECEIVER);
   const { currentOtp } = useSelector((state) => state.OTP);
-  var time = 0.5;
+  var time = 0.2;
 
   const [countdown, setCountdown] = useState();
   const [alreadyReached, setalreadyReached] = useState(false);
@@ -71,10 +72,15 @@ const AfterPickingTimer = () => {
       console.log("enter otp");
     }
     if (otpData == currentOtp) {
+      const socket = io.connect("http://localhost:3001");
+      socket.on("connect", () => {
+        console.log("Connected to server");
+        socket.emit("Verified", { message: "yes" });
+      });
       toast.success("OTP verified SUCCESSFULLY");
       navigate('/successfullydelivered');
     } else {
-      toast.error("Wrong OTP");
+      toast.error("invalid OTP");
     }
   };
 

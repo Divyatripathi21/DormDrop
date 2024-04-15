@@ -1,6 +1,8 @@
 import { Alert, Spinner } from 'flowbite-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import io from "socket.io-client";
+
 
 const Receiver = () => {
     
@@ -16,6 +18,16 @@ const Receiver = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
+    const socket = io.connect("http://localhost:3001");
+    socket.on("connect", () => {
+      console.log("Connected to server");
+      socket.emit("receiverFormSubmitted", { message: "receiverFormSubmitted" });
+    });
+
+
+
      if (!formData.registrationNumber || !formData.mobileNumber || !formData.block || !formData.name || !formData.room || !formData.waitTime || !formData.email) {
       return setErrorMessage('Please fill out all fields.');
     }
@@ -35,7 +47,7 @@ const Receiver = () => {
       
       setLoading(false);
       if(res.ok) {
-        navigate('/senderpost');
+        navigate('/receiverend1');
         //send this to sender's post lists
          
       }

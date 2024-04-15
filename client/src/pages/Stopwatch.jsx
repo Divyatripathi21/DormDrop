@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Stopwatch = () => {
   const navigate = useNavigate();
   const { currentReceiver } = useSelector((state) => state.RECEIVER);
- const c=0.13;
+ const c=0.2;
   const [countdown, setCountdown] = useState();
 
   useEffect(() => {

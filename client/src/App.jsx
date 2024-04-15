@@ -18,6 +18,10 @@ import { ToastContainer } from "react-toastify";
 import SuccessfullyDelivered from "./pages/SuccessfullyDelivered";
 import SenderEnd1 from "./pages/SenderEnd1";
 import ReceiverEnd1 from "./pages/ReceiverEnd1";
+import Rec2Stopwatch from "./pages/Rec2Stopwatch";
+import Rec1_5 from "./pages/Rec1_5";
+import YourOrders from "./pages/YourOrders";
+import SuccessfullyReceived from "./pages/SuccessfullyReceived";
 
 
 
@@ -40,8 +44,13 @@ export default function App() {
         <Route path="/afterpickingtimer" element={<AfterPickingTimer/>}/>
         <Route path="/sendotp" element={<SendOTP/>} />
         <Route path="/successfullydelivered" element={<SuccessfullyDelivered/>} />
+        <Route path="/successfullyreceived" element={<SuccessfullyReceived/>} />
         <Route path="/senderend1" element={<SenderEnd1/>} />
         <Route path="/receiverend1" element={<ReceiverEnd1/>} />
+        <Route path="/rec2stopwatch" element={<Rec2Stopwatch/>} />
+        <Route path="/rec1_5" element={<Rec1_5/>} />
+        <Route path="/rec1_5" element={<Rec1_5/>} />
+        <Route path="/yourorders" element={<YourOrders/>} />
         
       </Routes>
       <ToastContainer/>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { theOtp } from '../redux/otp/otpSlice';
-
+import io from "socket.io-client";
 
 
  
@@ -22,6 +22,21 @@ const SendOTP = () => {
 
   const handleOnclick=async()=>{
     
+
+
+
+
+    const socket = io.connect("http://localhost:3001");
+      socket.on("connect", () => {
+        console.log("Connected to server");
+        socket.emit("picked", { message: "yes" });
+      });
+      
+      
+
+
+
+
     try {
     
       const res = await fetch('/api/otp/sendotp', {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-const Stopwatch = ({t1}) => {
+const Rec1Stopwatch = ({t1}) => {
   const navigate = useNavigate();
   
  const c=t1;
@@ -43,7 +43,10 @@ const Stopwatch = ({t1}) => {
     } else if (countdown === 0) {
       localStorage.removeItem('countdown');
       localStorage.removeItem('endTime');
-      // navigate('/sendotp');
+      navigate('/rec1_5');
+      
+
+      
     }
   }, [countdown]);
 
@@ -67,4 +70,4 @@ const Stopwatch = ({t1}) => {
     )
   };
 
-export default Stopwatch;
+export default Rec1Stopwatch;

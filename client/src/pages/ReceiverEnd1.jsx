@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Rec1Stopwatch from './Rec1Stopwatch';
+import { theRecSideSender } from '../redux/recSideSenderr/recSideSenderrSlice';
+import io from "socket.io-client";
+
 
 const ReceiverEnd1 = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [currentSender, setCurrentSender] = useState(null); // Define state variable to store currentSender
+  const [f, setf] = useState(null); // Define state variable to store currentSender
   const [dataFetched, setDataFetched] = useState(false); // Flag to indicate whether data has been fetched
+  const dispatch=useDispatch();
 
+ 
   useEffect(() => {
     const fetchSenderData = async () => {
       try {
@@ -15,7 +21,23 @@ const ReceiverEnd1 = () => {
         
         if (res.ok) {
           setCurrentSender(data.currentData.currentSender); // Store currentSender in state variable
+          dispatch(theRecSideSender(data.currentData.currentSender));
           setDataFetched(true); // Set flag to true when data is fetched
+          setf(data.currentData.currentReceiver.registrationNumber)
+          console.log(`f is ${f}`);
+          console.log(currentUser.username);
+
+
+          const socket = io.connect("http://localhost:3001");
+    socket.on("connect", () => {
+      console.log("Connected to server");
+      
+      const sendermodel=data.currentData._id;
+      socket.emit("deleteSenderend1model",sendermodel);
+     
+    });  
+
+
         } else {
           console.log("Error retrieving sender data");
         }
@@ -40,10 +62,10 @@ const ReceiverEnd1 = () => {
   return (
     <div className="max-w-lg mx-auto">
       <h1 className="text-2xl font-bold mb-4">Receiver End Component</h1>
-      {currentSender ? (
+      {(currentSender && f===currentUser.username)?(
        
         <div className="bg-gray-100 rounded-lg p-4 shadow-md">
-           <Rec1Stopwatch t1={0.5}/>
+           <Rec1Stopwatch t1={0.2}/>
           <h2 className="text-xl font-semibold mb-2">Current Sender Details</h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
