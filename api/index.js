@@ -41,6 +41,8 @@ server.listen(3001, () => {
   console.log("SERVER IS RUNNING");
 });
 
+
+//OTP VERIFIED COMING from "afterPickingTimer" to "rec2stopwatch"
 io.on("connection", (socket) => {
   console.log("New client connected");
 
@@ -53,6 +55,8 @@ io.on("connection", (socket) => {
 });
 
 
+
+//coming from sendOtp to rec1_5
 io.on("connection", (socket) => {
   console.log("New client connected");
 
@@ -65,7 +69,7 @@ io.on("connection", (socket) => {
 });
 
 
-
+//receiver to receiverpost
 io.on("connection", (socket) => {
   console.log("New client connected");
 
