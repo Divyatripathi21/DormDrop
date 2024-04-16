@@ -25,7 +25,7 @@ const SendOTP = () => {
 
 
 
-
+    //sending this to index.js to rec 1_5
     const socket = io.connect("http://localhost:3001");
       socket.on("connect", () => {
         console.log("Connected to server");
@@ -56,6 +56,15 @@ const SendOTP = () => {
       if(res.ok) {
         console.log(data.otp);
         dispatch(theOtp(data.otp));
+
+        const socket = io.connect("http://localhost:3001");
+        socket.on("connect", () => {
+          console.log("Connected to server");
+          socket.emit("picked", { message: "yes" });
+        });
+        
+
+
         toast.success("OTP SENT SUCCESSFULLY");
       }
     } catch (error) {

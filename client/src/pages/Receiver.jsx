@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import io from "socket.io-client";
 
-
+//step1
 const Receiver = () => {
     
   const [formData, setFormData] = useState({});
@@ -19,7 +19,7 @@ const Receiver = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
+    //just to reload the page of sender side i.e receiverpost
     const socket = io.connect("http://localhost:3001");
     socket.on("connect", () => {
       console.log("Connected to server");

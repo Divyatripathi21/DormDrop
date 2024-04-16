@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { theYourOrders } from "../redux/yourOrders/yourOrdersSlice";
-
+//step 6
 const SuccessfullyReceived = () => {
   const dispatch =useDispatch();
   const navigate=useNavigate();
@@ -23,7 +23,7 @@ const SuccessfullyReceived = () => {
   
     const handleSubmit = async () => {
   
-      
+      //saving the data in "yourorders" in mongodb;
       try {
         const res = await fetch('/api/yourorders/useryourorders', {
           method: 'POST',

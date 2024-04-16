@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Rec1Stopwatch from './Rec1Stopwatch';
 import { theRecSideSender } from '../redux/recSideSenderr/recSideSenderrSlice';
 import io from "socket.io-client";
-
+//step2 
 
 const ReceiverEnd1 = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -16,18 +16,21 @@ const ReceiverEnd1 = () => {
   useEffect(() => {
     const fetchSenderData = async () => {
       try {
+
+        //we are taking out info from senderend1 moldel i.e currentSneder and currentRerceiver
         const res = await fetch(`/api/senderend/senderend1/${currentUser.username}`);
         const data = await res.json();
         
         if (res.ok) {
           setCurrentSender(data.currentData.currentSender); // Store currentSender in state variable
+          console.log(`output=${currentSender}`);
           dispatch(theRecSideSender(data.currentData.currentSender));
           setDataFetched(true); // Set flag to true when data is fetched
           setf(data.currentData.currentReceiver.registrationNumber)
           console.log(`f is ${f}`);
           console.log(currentUser.username);
 
-
+           //sending message to mongodb to delete senderend1 model  
           const socket = io.connect("http://localhost:3001");
     socket.on("connect", () => {
       console.log("Connected to server");
