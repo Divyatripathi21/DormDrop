@@ -72,11 +72,16 @@ const AfterPickingTimer = () => {
       console.log("enter otp");
     }
     if (otpData == currentOtp) {
+
+      //this soclket is used to render successfullt received page of receiver Side
       const socket = io.connect("http://localhost:3001");
       socket.on("connect", () => {
         console.log("Connected to server");
         socket.emit("Verified", { message: "yes" });
       });
+
+
+      
       toast.success("OTP verified SUCCESSFULLY");
       navigate('/successfullydelivered');
     } else {

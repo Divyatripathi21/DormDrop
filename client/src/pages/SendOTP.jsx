@@ -12,6 +12,7 @@ import io from "socket.io-client";
 const SendOTP = () => {
   const dispatch=useDispatch();
   const { currentReceiver } = useSelector((state) => state.RECEIVER);
+  const [OtpSentSuccessfully,setOtpSentSuccessfully]=useState(null);
   const navigate=useNavigate();
   const email=currentReceiver.email;
   const formdata={
@@ -25,12 +26,8 @@ const SendOTP = () => {
 
 
 
-    //sending this to index.js to rec 1_5
-    const socket = io.connect("http://localhost:3001");
-      socket.on("connect", () => {
-        console.log("Connected to server");
-        socket.emit("picked", { message: "yes" });
-      });
+
+
       
       
 
@@ -48,30 +45,31 @@ const SendOTP = () => {
 
       const data = await res.json();
       if (data.success === false) {
-        toast.error("failed from backend otp");
-        console.log('failed')
+        setOtpSentSuccessfully(false);
+        console.log('failed from try')
       }
       
     
       if(res.ok) {
+        setOtpSentSuccessfully(true);
         console.log(data.otp);
         dispatch(theOtp(data.otp));
-
+       //sending this to index.js to rec 1_5
         const socket = io.connect("http://localhost:3001");
         socket.on("connect", () => {
           console.log("Connected to server");
           socket.emit("picked", { message: "yes" });
         });
-        
 
-
+        navigate('/afterpickingtimer');
         toast.success("OTP SENT SUCCESSFULLY");
       }
     } catch (error) {
+      setOtpSentSuccessfully(false);
+      toast.error("Something went wrong");
       console.log('failed from catch');
     }
     
-    navigate('/afterpickingtimer');
     
   }
 
@@ -81,11 +79,19 @@ const SendOTP = () => {
       The delivery partner has arrived outside of Gate-2. Please contact the receiver at phone number {currentReceiver.mobileNumber}
     </div>
       <h1><b>By clicking the Below button You confirm that you up the order and send an OTP To the Receiver</b> </h1>
-    <button onClick={handleOnclick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Order picked? Confirm
+    {OtpSentSuccessfully===false?(
+      <button onClick={handleOnclick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Resend OTP/Confirm
     </button>
+    ):(<button onClick={handleOnclick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Order picked? SendOtp/Confirm
+  </button>)}
   </div>
   );
 };
 
 export default SendOTP;
+
+
+
+

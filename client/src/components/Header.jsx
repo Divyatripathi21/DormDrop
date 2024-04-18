@@ -41,7 +41,7 @@ export default function Header() {
       if (res.ok) {
         console.log("success");
         dispatch(theDashboard(data));
-        navigate("/yourorders");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log("error from catch");
