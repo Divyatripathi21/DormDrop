@@ -25,7 +25,7 @@ app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3001",
+    origin: "https://dormdrop.onrender.com/",
   },
 });
 
