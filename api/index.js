@@ -25,8 +25,9 @@ app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://dormdrop.onrender.com/",
+    origin: "https://dormdrop.onrender.com",
   },
+  path:'/socket.io/'
 });
 
 mongoose
