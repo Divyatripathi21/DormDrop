@@ -14,6 +14,7 @@ import cors from "cors";
 import Receiver from "./models/receiver.model.js";
 import Sender from "./models/sender.model.js";
 import SenderEnd1 from "./models/senderEnd1.model.js";
+import path from 'path';
 
 dotenv.config();
 
@@ -36,6 +37,10 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+  const __dirname = path.resolve();
+
+
 
 server.listen(3001, () => {
   console.log("SERVER IS RUNNING");
@@ -179,6 +184,12 @@ app.use("/api/otp", otpRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/yourorders", yourOrdersRoutes);
 app.use("/api/senderend", senderendRoutes);
+
+app.use(express.static(path.join(__dirname,'/client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 //middleware
 app.use((err, req, res, next) => {
