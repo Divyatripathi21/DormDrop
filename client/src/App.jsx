@@ -25,6 +25,7 @@ import SuccessfullyReceived from "./pages/SuccessfullyReceived";
 import PrivateRoute from "./components/PrivateRoute";
 import SetPassword from "./pages/SetPassword";
 import SetForgotPassword from "./pages/SetForgotPassword";
+import Rec1Stopwatch from "./pages/Rec1Stopwatch";
 
 
 
@@ -34,12 +35,12 @@ export default function App() {
     <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about/:menuItem" element={<About />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/contactus" element={<ContactUs />} />
 
-        
+       
         <Route element={<PrivateRoute/>}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/sender" element={<Sender />} />
@@ -52,18 +53,18 @@ export default function App() {
         <Route path="/successfullydelivered" element={<SuccessfullyDelivered/>} />
         <Route path="/successfullyreceived" element={<SuccessfullyReceived/>} />
         <Route path="/senderend1" element={<SenderEnd1/>} />
-        <Route path="/receiverend1" element={<ReceiverEnd1/>} />
+        <Route path="/receiverend1/:t1" element={<ReceiverEnd1/>} />
+        <Route path="/rec1stopwatch/:t1" element={<Rec1Stopwatch/>} />
         <Route path="/rec2stopwatch" element={<Rec2Stopwatch/>} />
         <Route path="/rec1_5" element={<Rec1_5/>} />
         <Route path="/yourorders" element={<YourOrders/>} />
         </Route>
         <Route path="/setpassword" element={<SetPassword/>} />
         <Route path="/setforgotpassword/:username" element={<SetForgotPassword />} />
-        
+       
       </Routes>
       <ToastContainer/>
       <Footer/>
     </BrowserRouter>
   );
 }
-

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { theDashboard } from '../redux/dashboard/dashboardSlice';
-
+import { Alert, Spinner } from 'flowbite-react';
 
 const SuccessfullyDelivered = () => {
+  const [loading, setLoading] = useState(false);
   const dispatch =useDispatch();
   const navigate=useNavigate();
   const [countdown, setCountdown] = useState(5);
@@ -14,40 +15,44 @@ const SuccessfullyDelivered = () => {
     username: currentUser.username,
     receivers:[currentReceiver],
   };
-  
+ 
 
 
   useEffect(()=>{
-    
-  
+   
+ 
     const handleSubmit = async () => {
-  
-      
+ 
+     
       try {
+        setLoading(true);
         const res = await fetch('/api/dashboard/userdashboard', {
+
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formdata),
         });
         const data = await res.json();
+        setLoading(false);
         if (data.success === false) {
           console.log('error from bakck');
-          
+         
         }
-        
-        
+       
+       
         if(res.ok) {
           console.log('success');
           dispatch(theDashboard(data));
-          // console.log(data); 
+          // console.log(data);
 
            
         }
       } catch (error) {
           console.log('error from cathc');
+          setLoading(false);
       }
     };
-    
+   
     handleSubmit();
   },[]);
 
@@ -67,11 +72,22 @@ const SuccessfullyDelivered = () => {
 
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md">
-        <h1 className="text-2xl font-bold mb-4 text-green-500">Successful Delivery!</h1>
-        <p className="text-gray-700">Redirecting in {countdown} seconds...</p>
+    <div>
+    {loading ? (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center">
+          <Spinner size="xl" className="w-20 h-20" /> {/* Spinner size */}
+          <span className="pl-3 text-xl">Loading...</span>
+        </div>
       </div>
+    ) : (
+      <div className="min-h-screen flex justify-center items-center bg-gray-100">
+<div className="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 p-8 rounded shadow-md">
+  <h1 className="text-2xl font-bold mb-4 text-black">Successful Delivery!</h1>
+  <p className="text-gray-700">Redirecting in {countdown} seconds...</p>
+</div>
+</div>
+    )}
     </div>
   );
 };

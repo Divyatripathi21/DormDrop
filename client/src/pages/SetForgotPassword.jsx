@@ -1,3 +1,4 @@
+import { Spinner } from 'flowbite-react';
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -9,6 +10,7 @@ export default function SetForgotPassword() {
   const [confnewPass, setconfnewPass] = useState();
   const navigate=useNavigate();
   const {username}=useParams();
+  const [loading, setLoading] = useState(false);
 
   const handleChange1 = (e) => {
     setnewPass(e.target.value);
@@ -21,7 +23,7 @@ export default function SetForgotPassword() {
 
 
 
-  const handleonsubmit =async (e) => {
+  const handleOnclick =async (e) => {
     e.preventDefault();
 
 
@@ -34,27 +36,31 @@ export default function SetForgotPassword() {
     {
 
       try{
+        setLoading(true);
         const res = await fetch(`/api/otp/setforgotpassword/${username}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({confnewPass}),
         });
         const data = await res.json();
+        setLoading(false);
         if (data.success === false) {
-            
+           
           console.log("error from backend");
         }
-        
-        
+       
+       
         if(data.success===true) {
+          toast.success("Password Reset Successfully");
           navigate('/signin');
         }
       } catch (error) {
+        setLoading(false);
         console.log(error);
    
       }
    }
-    
+   
   };
 
 
@@ -65,27 +71,44 @@ export default function SetForgotPassword() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
+      <div className='bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 p-8 rounded shadow-md '>
     <h1 className="text-2xl font-semibold mb-1">Set Your New Password</h1>
     <div className="flex flex-col items-center">
       <label htmlFor="New Password" className="mb-2"></label>
-      <input 
-        type="text" 
-        id="New Password" 
+      <input
+        type="text"
+        id="New Password"
         className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
         placeholder="New Password"
         onChange={handleChange1}
         />
          <label htmlFor="Confirm Password" className="mb-2"></label>
-      <input 
-        type="text" 
-        id="Confirm Password" 
+      <input
+        type="text"
+        id="Confirm Password"
         className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
         placeholder="Confirm Password"
         onChange={handleChange2}
         />
-      <button  onClick={handleonsubmit}  className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out">
-        Submit
-      </button>
+      {loading ? (
+                <>
+                  <button
+                    onClick={handleOnclick}
+                    className="mt-4 hover:scale-105 transition-transform bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-8  shadow-md text-white font-semibold py-2 px-4 rounded-md "
+                  >
+                    <Spinner size="sm" />
+                    <span className="pl-3">Loading...</span>
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleOnclick}
+                  className="mt-4 hover:scale-105 transition-transform bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-8  shadow-md text-white font-semibold py-2 px-4 rounded-md "
+                >
+                  Submit
+                </button>
+              )}
+    </div>
     </div>
     </div>
   )

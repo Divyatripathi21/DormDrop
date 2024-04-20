@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { theYourOrders } from "../redux/yourOrders/yourOrdersSlice";
-//step 6
+
 const SuccessfullyReceived = () => {
   const dispatch =useDispatch();
   const navigate=useNavigate();
@@ -11,19 +11,19 @@ const SuccessfullyReceived = () => {
   const { currentRecSideSender } = useSelector((state) => state.RECSIDESENDER);
 
   const currentSender=currentRecSideSender;
-  
+ 
   const formdata = {
     username: currentUser.username,
     senders:[currentSender],
   };
-  
+ 
 
   useEffect(()=>{
-    
-  
+   
+ 
     const handleSubmit = async () => {
-  
-      //saving the data in "yourorders" in mongodb;
+ 
+     
       try {
         const res = await fetch('/api/yourorders/useryourorders', {
           method: 'POST',
@@ -33,14 +33,14 @@ const SuccessfullyReceived = () => {
         const data = await res.json();
         if (data.success === false) {
           console.log('error from bakck');
-          
+         
         }
-        
-        
+       
+       
         if(res.ok) {
           console.log('success');
           dispatch(theYourOrders(data));
-          // console.log(data); 
+          // console.log(data);
 
            
         }
@@ -48,7 +48,7 @@ const SuccessfullyReceived = () => {
           console.log('error from cathc');
       }
     };
-    
+   
     handleSubmit();
   },[]);
 
@@ -69,10 +69,10 @@ const SuccessfullyReceived = () => {
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md">
-        <h1 className="text-2xl font-bold mb-4 text-green-500">Successful Delivery!</h1>
-        <p className="text-gray-700">Redirecting in {countdown} seconds...</p>
-      </div>
+    <div className="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 p-8 rounded shadow-md">
+      <h1 className="text-2xl font-bold mb-4 text-black">Successful Delivery!</h1>
+      <p className="text-gray-700">Redirecting in {countdown} seconds...</p>
+    </div>
     </div>
   );
 };
