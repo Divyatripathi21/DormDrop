@@ -15,21 +15,34 @@ import Receiver from "./models/receiver.model.js";
 import Sender from "./models/sender.model.js";
 import SenderEnd1 from "./models/senderEnd1.model.js";
 import path from 'path';
+import { createServer } from "http";
+
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-const server = http.createServer(app);
+
+
+const server =createServer(app);
+
+
 const io = new Server(server, {
   cors: {
     origin: "https://dormdrop.onrender.com",
+    methods:["GET","POST"],
+    credentials:true,
   },
-  path:'/socket.io/'
 });
 
+app.use(cors(
+  {
+    origin: "https://dormdrop.onrender.com",
+  }
+))
+
+
+app.use(express.json());
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
@@ -41,11 +54,6 @@ mongoose
 
   const __dirname = path.resolve();
 
-
-
-server.listen(3001, () => {
-  console.log("SERVER IS RUNNING");
-});
 
 
 //OTP VERIFIED COMING from "afterPickingTimer" to "rec2stopwatch"
@@ -174,7 +182,7 @@ io.on("connection", (socket) => {
 
 
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log("Server is running on port 3000!");
 });
 

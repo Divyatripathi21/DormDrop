@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { theReceiver } from "../redux/receiver/receiverSlice";
-import io from "socket.io-client";
+import {io} from "socket.io-client";
 import { Alert, Spinner } from "flowbite-react";
 
 const ReceiverPost = () => {
@@ -14,7 +14,7 @@ const ReceiverPost = () => {
   const [receiverData, setreceiverData] = useState([]);
   const navigate = useNavigate();
 
-  const socket = io('https://dormdrop.onrender.com', { path: '/socket.io/' });
+  const socket = io('https://dormdrop.onrender.com');
 
   socket.on("connect", () => {
     console.log("Connected to server");
@@ -50,7 +50,7 @@ const ReceiverPost = () => {
 
   const handleOnclick = (receiver) => {
     dispatch(theReceiver(receiver));
-    const socket = io.connect("http://localhost:3001");
+    const socket = io.connect("https://dormdrop.onrender.com");
     socket.on("connect", () => {
       console.log("Connected to server");
       const registrationNumber = receiver.registrationNumber;

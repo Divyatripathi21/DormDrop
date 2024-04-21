@@ -1,7 +1,7 @@
 import { Alert, Spinner } from 'flowbite-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import io from "socket.io-client";
+import {io} from "socket.io-client";
 
 
 const Receiver = () => {
@@ -21,7 +21,7 @@ const Receiver = () => {
     e.preventDefault();
 
 
-    const socket = io('https://dormdrop.onrender.com', { path: '/socket.io/' });
+    const socket = io('https://dormdrop.onrender.com');
     socket.on("connect", () => {
       console.log("Connected to server");
       socket.emit("receiverFormSubmitted", { message: "receiverFormSubmitted" });

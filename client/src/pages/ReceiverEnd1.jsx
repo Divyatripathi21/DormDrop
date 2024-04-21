@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Rec1Stopwatch from "./Rec1Stopwatch";
 import { theRecSideSender } from "../redux/recSideSenderr/recSideSenderrSlice";
-import io from "socket.io-client";
+import {io} from "socket.io-client";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ReceiverEnd1 = () => {
@@ -32,7 +32,7 @@ const ReceiverEnd1 = () => {
           console.log(`f is ${f}`);
           console.log(currentUser.username);
 
-          const socket = io.connect("http://localhost:3001");
+          const socket = io.connect("https://dormdrop.onrender.com");
           socket.on("connect", () => {
             console.log("Connected to server");
 

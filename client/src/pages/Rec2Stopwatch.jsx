@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import io from "socket.io-client";
+import {io} from "socket.io-client";
 import AnimatedHourglass from "../components/AnimatedHourglass";
 
 const Rec2Stopwatch = () => {
@@ -18,7 +18,7 @@ const Rec2Stopwatch = () => {
 
 
 
-  const socket = io.connect("http://localhost:3001");
+  const socket = io.connect("https://dormdrop.onrender.com");
 
   socket.on("connect", () => {
     console.log("Connected to server");
