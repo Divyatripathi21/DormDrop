@@ -14,7 +14,7 @@ const ReceiverPost = () => {
   const [receiverData, setreceiverData] = useState([]);
   const navigate = useNavigate();
 
-  const socket = io(" https://dormdrop.onrender.com");
+  const socket = io("https://dormdrop.onrender.com");
 
   //         https://dormdrop.onrender.com
   //http://localhost:3000
