@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { theOtp } from "../redux/otp/otpSlice";
-import {io} from "socket.io-client";
+import { io } from "socket.io-client";
 import { Spinner } from "flowbite-react";
+import SP from "./cycle.jpg";
 
 const SendOTP = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ const SendOTP = () => {
         dispatch(theOtp(data.otp));
         //sending this to index.js to rec 1_5
         const socket = io.connect("https://dormdrop.onrender.com");
+
+        //   https://dormdrop.onrender.com
+        //http://localhost:3000
         socket.on("connect", () => {
           console.log("Connected to server");
           socket.emit("picked", { message: "yes" });
@@ -57,19 +61,29 @@ const SendOTP = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="p-4 mx-4 rounded-xl bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 flex flex-col items-center justify-center ">
+    <div
+      className="flex flex-col items-center justify-center h-screen"
+      style={{ backgroundImage: `url(${SP})`, backgroundSize: "cover" }}
+    >
+      <div className="p-4 mx-4 rounded-xl bg-white bg-opacity-80 flex flex-col items-center justify-center ">
         <div className="text-2xl font-bold text-center mb-8">
           <p> The delivery partner has arrived outside of Gate-2.</p>
           <p>Please contact the receiver at phone number </p>
         </div>
         <div className="font-bold text-xl mb-8">
-          Mobile Number:  <a href={`tel:${currentReceiver.mobileNumber}`} className="text-blue-700 hover:text-blue-500">{currentReceiver.mobileNumber}</a>
+          Mobile Number:{" "}
+          <a
+            href={`tel:${currentReceiver.mobileNumber}`}
+            className="text-blue-700 hover:text-blue-500"
+          >
+            {currentReceiver.mobileNumber}
+          </a>
         </div>
         <div className="mb-2">
-          <p>By clicking the Below button
-            you confirm that you up the order and
-          send an OTP To the Receiver</p>
+          <p>
+            By clicking the Below button you confirm that you up the order and
+            send an OTP To the Receiver
+          </p>
         </div>
         {OtpSentSuccessfully === false ? (
           <button

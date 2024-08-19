@@ -88,20 +88,20 @@ export default function Header() {
 
 
   return (
-    <Navbar className="border-b-2 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
-      <Link to="/" className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white ">
-        <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
+    <Navbar className="bg-gray-800">
+      <Link to="/" className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold text-gray-300">
+        <span className="px-2 py-1 mr-1 span-color rounded-lg bg-gray-400 text-gray-800 font-semibold">
           Dorm
         </span>
         Drop
       </Link>
 
       <div className="flex gap-2 md:order-2">
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
+        {/* <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
           <FaMoon />
-        </Button>
+        </Button> */}
         {currentUser ? (
-          <Dropdown arrowIcon={false} inline label={<Avatar alt="user" rounded />}>
+          <Dropdown arrowIcon={false} inline label={<Avatar alt="user"  />}>
             <Dropdown.Header>
               <span className="block text-sm">@{currentUser.username}</span>
               <span className="block text-sm font-medium truncate">{currentUser.email}</span>
@@ -112,10 +112,10 @@ export default function Header() {
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <Link to="/signin">
-            <Button gradientDuoTone="purpleToBlue" outline>
+          <Link className="rounded-md px-3.5 py-2.5 bg-gray-400 text-gray-800 shadow-lg hover:scale-105 transition-transform font-semibold" to="/signin">
+            {/* <Button className="rounded-md bg-gray-400 text-gray-800 shadow-lg hover:scale-105 transition-transform" > */}
               Sign in/up
-            </Button>
+            {/* </Button> */}
           </Link>
         )}
         <Navbar.Toggle />
@@ -123,14 +123,14 @@ export default function Header() {
 
       <Navbar.Collapse>
         <Navbar.Link active={path === "/"} as={"div"}>
-          <Link to="/" className="text-lg">
+          <Link to="/" className="text-lg text-gray-400">
             Home
           </Link>
         </Navbar.Link>
         <div className="relative" ref={dropdownRef}>
           <button onClick={toggleDropdown} className="flex items-center">
-            <span className="text-lg mr-2">About</span>
-            {showDropdown ? <RiArrowDropUpLine size={24} /> : <RiArrowDropDownLine size={24} />}
+            <span className="text-lg mr-2 text-gray-400">About</span>
+            {showDropdown ? <RiArrowDropUpLine className="text-gray-400" size={24} /> : <RiArrowDropDownLine className="text-gray-400" size={24} />}
           </button>
           {showDropdown && (
             <div className="absolute top-full left-0 mt-1 bg-white shadow-md rounded-lg">
@@ -164,7 +164,7 @@ export default function Header() {
           )}
         </div>
         <Navbar.Link active={path === "/contactus"} as={"div"}>
-          <Link to="/contactus" className="text-lg">
+          <Link to="/contactus" className="text-lg text-gray-400">
             Contact Us
           </Link>
         </Navbar.Link>

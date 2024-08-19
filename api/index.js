@@ -8,7 +8,6 @@ import otpRoutes from "./routes/otp.route.js";
 import dashboardRoutes from "./routes/dashboard.route.js";
 import yourOrdersRoutes from "./routes/yourOrders.route.js";
 import senderendRoutes from "./routes/senderEnd.route.js";
-import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import Receiver from "./models/receiver.model.js";
@@ -16,6 +15,9 @@ import Sender from "./models/sender.model.js";
 import SenderEnd1 from "./models/senderEnd1.model.js";
 import path from 'path';
 import { createServer } from "http";
+import { setupNodeErrorHandling } from 'debugsensei';
+import ratingRoutes from "./routes/rating.route.js";
+setupNodeErrorHandling();
 
 
 dotenv.config();
@@ -29,7 +31,7 @@ const server =createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://dormdrop.onrender.com",
+    origin: "https://dormdrop.onrender.com",     //http://localhost:5173  //https://dormdrop.onrender.com
     methods:["GET","POST"],
     credentials:true,
   },
@@ -37,7 +39,7 @@ const io = new Server(server, {
 
 app.use(cors(
   {
-    origin: "https://dormdrop.onrender.com",
+    origin: "https://dormdrop.onrender.com",       //https://dormdrop.onrender.com  //http://localhost:5173
   }
 ))
 
@@ -193,12 +195,14 @@ app.use("/api/otp", otpRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/yourorders", yourOrdersRoutes);
 app.use("/api/senderend", senderendRoutes);
+app.use("/api/rating", ratingRoutes);
 
 app.use(express.static(path.join(__dirname,'/client/dist')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
+
 
 //middleware
 app.use((err, req, res, next) => {

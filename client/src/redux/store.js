@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   SENDER:senderReducer,
   RECSIDESENDER:recSideSenderReducer,
   YOURORDERS:yourOrdersReducer,
-});
+}); 
 
 
 

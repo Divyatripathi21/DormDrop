@@ -1,42 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {io} from "socket.io-client";
+import { io } from "socket.io-client";
 import AnimatedHourglass from "../components/AnimatedHourglass";
+import SP from "./block.jpg";
 
 const Rec2Stopwatch = () => {
   const { currentRecSideSender } = useSelector((state) => state.RECSIDESENDER);
 
-
   console.log(`this is====${currentRecSideSender}`);
-
 
   const navigate = useNavigate();
 
   const c = 0.2;
   const [countdown, setCountdown] = useState(c);
 
+  const socket = io.connect("https://dormdrop.onrender.com");  //https://dormdrop.onrender.com //http://localhost:3000
+ 
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Connected to server");
+    });
 
+    socket.on("sendMessageToClient2", (data) => {
+      console.log("Received message from server:", data);
+      if (data === "yes") {
+        navigate("/successfullyreceived");
+        navigate("/ratings");
+      }
+    });
 
-  const socket = io.connect("https://dormdrop.onrender.com");
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
 
-  socket.on("connect", () => {
-    console.log("Connected to server");
-  });
-
-  socket.on("sendMessageToClient2", (data) => {
-    console.log("Received message from server:", data);
-    if(data==="yes")
-    navigate('/successfullyreceived');
-  });
-  socket.on("disconnect", () => {
-    console.log("Disconnected from server");
-  });
-
-
-
-
-
+    return () => {
+      socket.off("connect");
+      socket.off("sendMessageToClient2");
+      socket.off("disconnect");
+    };
+  }, [navigate, socket]);
 
   useEffect(() => {
     const storedCountdown = localStorage.getItem("countdown");
@@ -72,9 +75,9 @@ const Rec2Stopwatch = () => {
     } else if (countdown === 0) {
       localStorage.removeItem("countdown");
       localStorage.removeItem("endTime");
-     
     }
   }, [countdown]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       window.location.reload();
@@ -88,15 +91,17 @@ const Rec2Stopwatch = () => {
   const seconds = countdown % 60;
 
   return (
-    <>
-      <div className="flex flex-col items-center justify-center px-6 mb-8 sm:px-6 lg:px-8">
+    <div
+      className="min-h-screen flex flex-col justify-center items-center bg-cover bg-center"
+      style={{ backgroundImage: `url(${SP})` }}
+    >
+      <div className="flex flex-col items-center justify-center px-4 py-6 sm:px-6 lg:px-8 w-full max-w-6xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full">
           {/* Left side */}
-          <div className="w-full my-4 sm:pt-12 sm:max-w-xl bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 shadow-md rounded-lg overflow-hidden">
+          <div className="w-full my-4 sm:pt-12 bg-white opacity-80 shadow-md rounded-lg overflow-hidden">
             <h1 className="text-xl font-bold text-center mb-4">
               Your Order will reach within or at this time
             </h1>
-
             <div className="flex items-center justify-center text-6xl sm:text-8xl font-bold">
               <div>
                 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
@@ -106,9 +111,11 @@ const Rec2Stopwatch = () => {
           </div>
 
           {/* Right side */}
-          <div className="w-full my-4 sm:max-w-xl bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 shadow-md rounded-lg overflow-hidden">
+          <div className="w-full my-4 bg-white opacity-80 shadow-md rounded-lg overflow-hidden">
             <div className="p-4 flex flex-col h-full">
-              <h2 className="text-xl font-bold mb-2">Delivery Person Information</h2>
+              <h2 className="text-xl font-bold mb-2">
+                Delivery Person Information
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
                 <div className="flex flex-col">
                   <p className="text-gray-700 font-semibold">Name:</p>
@@ -133,7 +140,7 @@ const Rec2Stopwatch = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

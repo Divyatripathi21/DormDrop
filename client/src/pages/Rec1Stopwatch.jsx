@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import AnimatedHourglass from "../components/AnimatedHourglass";
+import SP from "./block.jpg";
 
 const Rec1Stopwatch = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const Rec1Stopwatch = () => {
     } else if (countdown === 0) {
       localStorage.removeItem("countdown");
       localStorage.removeItem("endTime");
-      navigate('/rec1_5');
+      navigate("/rec1_5");
     }
   }, [countdown]);
 
@@ -53,11 +54,11 @@ const Rec1Stopwatch = () => {
   const seconds = countdown % 60;
 
   return (
-    <>
-      <div className="flex flex-col items-center justify-center px-6 mb-8 sm:px-6 lg:px-8">
+    <div style={{ backgroundImage: `url(${SP})`, backgroundSize: "cover" }}>
+      <div className="flex flex-col min-h-screen items-center justify-center px-6 mb-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full">
           {/* Left side */}
-          <div className="w-full my-4 sm:pt-12 sm:max-w-xl bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 shadow-md rounded-lg overflow-hidden">
+          <div className="w-full my-4 sm:pt-12 sm:max-w-xl bg-white opacity-80 shadow-md rounded-lg overflow-hidden">
             <h1 className="text-xl font-bold text-center mb-4">
               Time in which delivery guy will arrive outside of Gate-2
             </h1>
@@ -71,7 +72,7 @@ const Rec1Stopwatch = () => {
           </div>
 
           {/* Right side */}
-          <div className="w-full my-4 sm:max-w-xl bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 shadow-md rounded-lg overflow-hidden">
+          <div className="w-full my-4 sm:max-w-xl bg-white opacity-80 shadow-md rounded-lg overflow-hidden">
             <div className="p-4 flex flex-col h-full">
               <h2 className="text-xl font-bold mb-2">Receiver Information</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
@@ -98,7 +99,7 @@ const Rec1Stopwatch = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
