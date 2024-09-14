@@ -4,7 +4,7 @@ import { errorHandler } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
 export const signup = async (req, res, next) => {
-  console.log("9");
+  // console.log("9");
   const { username, email, password } = req.body;
  
   if (
@@ -15,7 +15,7 @@ export const signup = async (req, res, next) => {
     email === '' ||
     password === ''
   ) {
-    console.log("1");
+    // console.log("1");
     next(errorHandler(400, 'All fields are required'));
   }
 
@@ -28,11 +28,11 @@ export const signup = async (req, res, next) => {
   });
 
   try {
-    console.log("2");
+    // console.log("2");
     await newUser.save();
     res.json('Signup successful');
   } catch (error) {
-    console.log("3");
+    // console.log("3");
     next(error);
   }
 };

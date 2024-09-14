@@ -41,7 +41,7 @@ export default function Ratings() {
 
       if (res.ok) {
         toast.success("Thanks for the feedback");
-        navigate("/yourorders");
+        navigate("/successfullyreceived");
       }
     } catch (error) {
       setLoading(false);
