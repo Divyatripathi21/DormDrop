@@ -23,6 +23,7 @@ export default function Dashboard() {
  
         if (res.ok) {
           setRating(data.rate);
+          
         } else {
           console.log("Error retrieving rating");
         }
@@ -30,9 +31,20 @@ export default function Dashboard() {
         console.log("Error fetchingsd rating:", error);
       }
     };
- 
-    fetchRating();
-  }, []);
+    
+
+     // Fetch sender data every 5 seconds if data hasn't been fetched yet
+     const interval = setInterval(() => {
+      if (!rating) {
+        fetchRating();
+      }
+    }, 2000);
+
+    // Clear the interval when the component unmounts or when currentUser changes
+    return () => clearInterval(interval);
+
+    
+  }, [rating]);
  
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -99,7 +111,7 @@ export default function Dashboard() {
               <p className="text-xl sm:text-3xl font-bold text-center mb-5">
                 Your rating is:{" "}
                 <span className="rounded-md p-1 text-yellow-900 sm:">
-                  {rating === 0 ? "Not yet rated" : rating}
+                  {rating === 0 ?  "Not yet rated" : rating}
                 </span>
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
