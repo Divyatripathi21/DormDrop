@@ -15,7 +15,7 @@ const Rec2Stopwatch = () => {
   const c = 0.2;
   const [countdown, setCountdown] = useState(c);
 
-  const socket = io.connect("https://dormdrop.onrender.com");  //https://dormdrop.onrender.com //http://localhost:3000
+  const socket = io.connect("http://localhost:3000");  //https://dormdrop.onrender.com //http://localhost:3000
  
   useEffect(() => {
     socket.on("connect", () => {
