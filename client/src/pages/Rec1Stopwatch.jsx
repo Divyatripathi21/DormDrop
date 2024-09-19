@@ -7,8 +7,8 @@ import SP from "./block.jpg";
 const Rec1Stopwatch = () => {
   const navigate = useNavigate();
   const { currentRecSideSender } = useSelector((state) => state.RECSIDESENDER);
-  // const { t1 } = useParams();
-  const c = 0.2;
+  const { t1 } = useParams();
+  const c = t1;
   const [countdown, setCountdown] = useState(c);
 
   useEffect(() => {
